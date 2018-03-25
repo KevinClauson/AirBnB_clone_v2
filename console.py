@@ -38,17 +38,39 @@ class HBNBCommand(cmd.Cmd):
         '''
             Create a new instance of class BaseModel and saves it
             to the JSON file.
+
+            Command syntax: create <Class name> <param 1> <param 2> ...
+
+            Param syntax: <key name>=<value>
+
+            Parameters must contain an "=" and meet the following format:
+            string="string with spaces" float=3.14 int=34
         '''
         if len(args) == 0:
             print("** class name missing **")
             return
         try:
-            args = shlex.split(args)
-            new_instance = eval(args[0])()
+            args = args.split(' ')
+            class_name = args[0]
+            new_instance = eval(class_name)()
+            for arg in args[1:]:
+                try:
+                    key = arg.split('=')[0]
+                    value = arg.split('=')[1]
+                    if value[0] == '"':
+                        value = value.replace("_", " ")
+                        value = value[1:-1]
+                    elif "." in value:
+                        value = float(value)
+                    else:
+                        value = int(value)
+                    setattr(new_instance, key, value)
+                except Exception:
+                    continue
             new_instance.save()
             print(new_instance.id)
 
-        except:
+        except Exception:
             print("** class doesn't exist **")
 
     def do_show(self, args):
@@ -213,7 +235,7 @@ class HBNBCommand(cmd.Cmd):
             cmd_arg = args[0] + " " + args[2]
             func = functions[args[1]]
             func(cmd_arg)
-        except:
+        except Exception:
             print("*** Unknown syntax:", args[0])
 
 
