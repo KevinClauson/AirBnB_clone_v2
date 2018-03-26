@@ -18,23 +18,13 @@ class FileStorage:
             Return dictionary of all objects or all the objects of a class
         '''
         if not cls:
-            return FileStorage.__objects
+            return self.__objects
         else:
             cname = cls.__name__
             cls_obj = {}
-            for k, v in FileStorage.__objects.items():
-                #print(type(v))
-                #print(v.to_dict())
-               # print("KEY: " + str(k))
-               # print("VALUE: " + str(v))
+            for k, v in self.__objects.items():
                 if cname == v.__class__.__name__:
-                    #obj_repr = str(v.__module__) + "." + \
-                    #str(v.__class__.__name__) + " object at " + str(hex(id(v)))
-                    #obj_repr.replace("'", "")
-                    #obj_repr = "<" + obj_repr + ">"
-                    #print(obj_repr)
-                    cls_obj[k] = v #cls(**v.to_dict())
-            #print("CLS_OBJ: " + str(cls_obj))
+                    cls_obj[k] = v
             return cls_obj
 
     def new(self, obj):
