@@ -21,14 +21,18 @@ class FileStorage:
             return FileStorage.__objects
         else:
             cname = cls.__name__
-            print(cname)
             cls_obj = {}
-            for k, v in self.__objects.items():
+            for k, v in FileStorage.__objects.items():
                 #print(type(v))
                 #print(v.to_dict())
                # print("KEY: " + str(k))
                # print("VALUE: " + str(v))
                 if cname == v.__class__.__name__:
+                    #obj_repr = str(v.__module__) + "." + \
+                    #str(v.__class__.__name__) + " object at " + str(hex(id(v)))
+                    #obj_repr.replace("'", "")
+                    #obj_repr = "<" + obj_repr + ">"
+                    #print(obj_repr)
                     cls_obj[k] = v #cls(**v.to_dict())
             #print("CLS_OBJ: " + str(cls_obj))
             return cls_obj
