@@ -5,9 +5,7 @@
 import cmd
 import json
 import shlex
-import models
-import os
-from models import storage
+from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 from models.user import User
 from models.place import Place
@@ -39,7 +37,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         '''
             Create a new instance of class BaseModel and saves it
-            to the JSON file or Database.
+            to the JSON file.
 
             Command syntax: create <Class name> <param 1> <param 2> ...
 
@@ -137,20 +135,15 @@ class HBNBCommand(cmd.Cmd):
             based or not on the class name.
         '''
         obj_list = []
-
-        try:
-            cname = models.classes[args]
-        except Exception:
-            cname = None
-        objects = storage.all(cname)
-
+        storage = FileStorage()
+        storage.reload()
+        objects = storage.all()
         try:
             if len(args) != 0:
-                    eval(args)
+                eval(args)
         except NameError:
             print("** class doesn't exist **")
             return
-
         for key, val in objects.items():
             if len(args) != 0:
                 if type(val) is eval(args):
