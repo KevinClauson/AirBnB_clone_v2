@@ -3,6 +3,7 @@
     This module defines the BaseModel class
 '''
 import uuid
+from os import environ
 from datetime import datetime
 import models
 from sqlalchemy.ext.declarative import declarative_base
@@ -14,6 +15,11 @@ class BaseModel:
     '''
         Base class for other classes to be used for the duration.
     '''
+    if environ.get('HBNB_TYPE_STORAGE') == 'db':
+        id = Column(String(60), nullable=False, primary_key=True)
+        created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+        updated_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
     def __init__(self, *args, **kwargs):
         '''
             Initialize public instance attributes.
