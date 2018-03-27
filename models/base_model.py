@@ -69,3 +69,9 @@ class BaseModel:
         cp_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
 
         return (cp_dct)
+
+    def delete(self):
+        """
+        delete current instance of storage                                                                                                                            
+        """
+        models.storage.delete(self)
