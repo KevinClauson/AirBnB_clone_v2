@@ -6,6 +6,7 @@ import uuid
 from datetime import datetime
 import models
 
+Base = declarative_base()
 
 class BaseModel:
     '''
