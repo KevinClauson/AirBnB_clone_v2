@@ -3,10 +3,10 @@
     Define the class City.
 '''
 from os import environ
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 
 
-class City(BaseModel):
+class City(BaseModel, Base):
     '''
         Define the class City that inherits from BaseModel.
     '''
