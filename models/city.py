@@ -2,12 +2,15 @@
 '''
     Define the class City.
 '''
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, ForeignKey
 
 
-class City(BaseModel):
+class City(BaseModel, Base):
     '''
-        Define the class City that inherits from BaseModel.
+        Define the class City that inherits from BaseModel and Base.
     '''
-    state_id = ""
-    name = ""
+
+    __tablename__ = 'cities'
+    state_id = Column(String(60), ForeignKey('states.id'))
+    name = Column(String(128), nullable=False)
