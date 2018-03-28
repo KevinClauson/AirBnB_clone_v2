@@ -63,18 +63,13 @@ class DBStorage:
         """
         if obj:
             self.__session.add(obj)
-            print("OBJ:", obj)
-            print("OBJ TYPE:", type(obj))
-            print("OBJ ID:", obj.id)
-            self.__session.commit()
-            print("END")
+            self.__session.save()
 
     def save(self):
         """
            commits changes to session
         """
         self.__session.commit()
-        print("SESSIONS")
 
     def delete(self, obj=None):
         """
