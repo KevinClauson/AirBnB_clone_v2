@@ -57,9 +57,8 @@ class FileStorage:
         '''
         try:
             with open(FileStorage.__file_path, encoding="UTF8") as fd:
-                print("file opened")
                 FileStorage.__objects = json.load(fd)
-                print("file loaded")
+
             for key, val in FileStorage.__objects.items():
                 class_name = val["__class__"]
                 class_name = models.classes[class_name]
