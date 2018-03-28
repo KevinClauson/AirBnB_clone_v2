@@ -14,6 +14,7 @@ if environ.get('HBNB_TYPE_STORAGE') == 'db':
 else:
     Base = object
 
+
 class BaseModel:
     '''
         Base class for other classes to be used for the duration.
@@ -59,8 +60,11 @@ class BaseModel:
             Update the updated_at attribute with new.
         '''
         self.updated_at = datetime.now()
+        print("BEFORE NEW")
         models.storage.new(self)
+        print("BEFORE SAVE")
         models.storage.save()
+        print("AFTER SAVE")
 
     def to_dict(self):
         '''
@@ -75,6 +79,6 @@ class BaseModel:
 
     def delete(self):
         """
-        delete current instance of storage                                                                                                                            
+           delete current instance of storage
         """
         models.storage.delete(self)

@@ -20,7 +20,10 @@ class FileStorage:
         if not cls:
             return self.__objects
         else:
-            cname = cls.__name__
+            if type(cls) != str:
+                cname = cls.__name__
+            else:
+                cname = cls
             cls_obj = {}
             for k, v in self.__objects.items():
                 if cname == v.__class__.__name__:
@@ -54,7 +57,9 @@ class FileStorage:
         '''
         try:
             with open(FileStorage.__file_path, encoding="UTF8") as fd:
+                print("file opened")
                 FileStorage.__objects = json.load(fd)
+                print("file loaded")
             for key, val in FileStorage.__objects.items():
                 class_name = val["__class__"]
                 class_name = models.classes[class_name]
