@@ -4,8 +4,20 @@
 '''
 from os import environ
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
+
+
+if environ.get('HBNB_TYPE_STORAGE') == 'db':
+        metadata = Base.metadata
+        place_amenity = Table("place_amenity", metadata,
+                              Column('place_id', String(60),
+                                     ForeignKey('places.id'), primary_key=True,
+                                     nullable=False),
+                              Column('amenity_id', String(60),
+                                     ForeignKey('amenities.id'),
+                                     primary_key=True,
+                                     nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -24,7 +36,10 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float)
         longitude = Column(Float)
-        reviews = relationship("Review", backref="place", cascade="all, delete")
+        reviews = relationship("Review", backref="place",
+                               cascade="all, delete")
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -37,7 +52,7 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
-        
+
         @property
         def reviews(self):
             """
@@ -50,3 +65,25 @@ class Place(BaseModel, Base):
                 if value.place_id == self.id:
                     match_reviews.append(value)
             return match_reviews
+
+        @property
+        def amenities(self):
+            """
+               getter for file storage
+            """
+            amenity_objs = {}
+            amenity_objs = models.storage.all(Amenity)
+            match_amenities = []
+            for key, value in amenity_objs:
+                if value.amenity_id == self.id:
+                    match_amenities.append(value)
+            return match_amenities
+
+        @amenities.setter
+        def amenities(self, obj):
+            """
+               setter for file storage
+            """
+
+            if type(obj) == models.classes["Amenity"]:
+                amenity_ids.append(obj.id)
