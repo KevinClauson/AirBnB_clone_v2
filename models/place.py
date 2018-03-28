@@ -4,7 +4,7 @@
 '''
 from os import environ
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer
+from sqlalchemy import Column, String, ForeignKey, Integer, Float
 
 
 class Place(BaseModel):
