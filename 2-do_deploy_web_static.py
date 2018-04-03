@@ -30,13 +30,11 @@ def do_deploy(archive_path):
     r = run('rm {}'.format(remote_name))
     if r.failed:
         return False
-    run('mv /data/web_static/releases/{}/web_static/* '
-        '/data/web_static/releases/{}/'.format(archive_name, archive_name))
+    run("cp -rp /data/web_static/releases/{}/web_static/*\
+        /data/web_static/releases/{}/".format(archive_name, archive_name))
     run('rm -rf /data/web_static/releases/{}/web_static/'.format(archive_name))
     r = run('rm -rf /data/web_static/current')
     if r.failed:
         return False
-    r = run('ln -sf /data/web_static/releases/{}/ /data/web_static/current'.format(archive_name)
-    if r.failed:
-            return False
+    run('ln -sf /data/web_static/releases/{}/ /data/web_static/current'.format(archive_name))
     return True
