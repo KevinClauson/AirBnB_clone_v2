@@ -1,6 +1,6 @@
-#!/usr/bin/python3                                                                                                                                                      
-"""                                                                                                                                                                     
-Deploys tgz file to web servers                                                                                 
+#!/usr/bin/python3
+"""
+Deploys tgz file to web servers
 """
 import os
 from datetime import datetime
@@ -21,7 +21,6 @@ def do_pack():
     if err == '':
         return file_name
     return None
-
 
 
 def do_deploy(archive_path):
