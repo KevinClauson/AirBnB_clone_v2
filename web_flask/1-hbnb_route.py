@@ -15,6 +15,7 @@ ip = '0.0.0.0'
 def hello_world():
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb')
 def hbnb():
     return 'HBNB'
