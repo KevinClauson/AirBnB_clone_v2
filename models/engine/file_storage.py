@@ -69,7 +69,6 @@ class FileStorage:
     def delete(self, obj=None):
         """
            deletes obj specified
-
            Arg:
                obj: object to be deleted
         """
@@ -81,6 +80,6 @@ class FileStorage:
 
     def close(self):
         """
-           calls reload to deserailze json to objects
+           reloads objs stored
         """
         self.reload()
