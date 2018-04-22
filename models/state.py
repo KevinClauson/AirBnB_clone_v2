@@ -2,6 +2,7 @@
 '''
     Implementation of the State class
 '''
+import models
 from os import environ
 from models.base_model import BaseModel, Base
 from models.city import City
@@ -28,9 +29,7 @@ class State(BaseModel, Base):
             city_objs = {}
             city_objs = models.storage.all(City)
             match_cities = []
-            for key, value in city_objs:
-                print("KEY: ", key)
-                print("Value: ", value)
+            for key, value in city_objs.items():
                 if value.state_id == self.id:
                     match_cities.append(value)
             return match_cities
