@@ -18,6 +18,7 @@ def states_list():
     state_objs = storage.all("State")
     return render_template('8-cities_by_states.html', state_objs=state_objs)
 
+
 @app.teardown_appcontext
 def teardown_db(exception):
     '''
