@@ -15,7 +15,7 @@ ip = '0.0.0.0'
 @app.route('/states_list')
 def states_list():
     """ state list route """
-    state_obj = storage.all("State")
+    state_objs = storage.all("State")
     return render_template('7-states_list.html', state_objs=state_objs)
 
 
