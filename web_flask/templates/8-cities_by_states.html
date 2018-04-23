@@ -7,11 +7,12 @@
     <H1>States</H1>
     <UL>
       {% for key in state_objs.keys()|sort %}
-      <LI>{{ state_objs[key].id }}: <B>{{ state_objs[key].name }}</B></LI>
+      <LI>{{ state_objs[key].id }}: <B>{{ state_objs[key].name }}</B>
       <UL>
 	{% for city in state_objs[key].cities|sort(attribute="name") %}
 	       <LI>{{ "%s" % city.id }}: <B>{{ "%s" % city.name }}</B></LI>
       </UL>
+      </LI>
       {% endfor %}
     </UL>
   </BODY>
